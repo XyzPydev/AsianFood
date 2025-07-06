@@ -1,0 +1,30 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Asian Food{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header>
+    <h1>🍜 Asian Food</h1>
+    <nav>
+        <a href="/">Головна</a>
+        {% if current_user.is_authenticated %}
+            <span>Привіт, {{ current_user.nickname }}!</span>
+        {% else %}
+            <a href="/login">Вхід</a> | <a href="/register">Реєстрація</a>
+        {% endif %}
+    </nav>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+    <p>&copy; 2025 Asian Food</p>
+</footer>
+</body>
+</html>
