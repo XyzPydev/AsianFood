@@ -36,7 +36,7 @@ def load_user(user_id):
 
 @app.after_request
 def apply_csp(response):
-    nonce = secrets.token_urlsafe(16)  # Генеруємо випадковий nonce для дозволених скриптів
+    nonce = secrets.token_urlsafe(16)
     csp = (
         f"default-src 'self'; "
         f"script-src 'self' 'nonce-{nonce}'; "
@@ -55,7 +55,11 @@ def home():
     if "csrf_token" not in session:
         session["csrf_token"] = secrets.token_hex(16)
 
-    return render_template('home.html')
+    with Session() as cursor:
+        menu = cursor.query(Menu).filter_by(active=True).all()
+
+    return render_template('home.html', menu=menu)
+
 
 @app.route("/register", methods = ['GET','POST'])
 def register():
@@ -98,3 +102,13 @@ def login():
             flash('Неправильний nickname або пароль!', 'danger')
 
     return render_template('login.html', csrf_token=session["csrf_token"])
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
