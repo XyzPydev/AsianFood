@@ -108,6 +108,55 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+    
+
+@app.route("/add_position", methods=['GET', 'POST'])
+@login_required
+def add_position():
+    if current_user.nickname != 'Admin':
+        return redirect(url_for('home'))
+
+    if request.method == "POST":
+        if request.form.get("csrf_token") != session["csrf_token"]:
+            return "Запит заблоковано!", 403
+
+        name = request.form['name']
+        file = request.files.get('img')
+        ingredients = request.form['ingredients']
+        description = request.form['description']
+        price = request.form['price']
+        weight = request.form['weight']
+
+        if not file or not file.filename:
+            flash('Файл не вибрано або завантаження не вдалося', 'danger')
+            return redirect(request.url)
+
+        unique_filename = f"{uuid.uuid4()}_{file.filename}"
+        output_path = os.path.join('static/menu', unique_filename)
+
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+        with open(output_path, 'wb') as f:
+            f.write(file.read())
+
+        with Session() as cursor:
+            new_position = Menu(
+                name=name,
+                ingredients=ingredients,
+                description=description,
+                price=int(price),
+                weight=f"{weight} г",
+                file_name=unique_filename,
+                active=True
+            )
+            cursor.add(new_position)
+            cursor.commit()
+
+        flash('Позицію додано успішно!', 'success')
+        return redirect(url_for('add_position'))
+
+    return render_template('add_position.html', csrf_token=session["csrf_token"])
+
 
 
 if __name__ == "__main__":
