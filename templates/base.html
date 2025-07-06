@@ -10,17 +10,19 @@
 <header>
     <h1>🍜 Asian Food</h1>
     <nav>
-        <a href="/">Головна</a>
-        {% if current_user.is_authenticated %}
-            <span>Привіт, {{ current_user.nickname }}!</span>
-        {% else %}
-            <a href="/login">Вхід</a> | <a href="/register">Реєстрація</a>
-        {% endif %}
-        {% if current_user.nickname == 'Admin' %}
-    <a href="/add_position">➕ Додати позицію</a>
-{% endif %}
-
-    </nav>
+        <nav>
+            {% if current_user.is_authenticated %}
+                Привіт, {{ current_user.nickname }}!
+                <a href="/logout">Вийти</a>
+            {% else %}
+                <a href="/login">Вхід</a>
+                <a href="/register">Реєстрація</a>
+            {% endif %}
+            
+            {% if current_user.nickname == 'Admin' %}
+                <a href="/add_position">➕ Додати позицію</a>
+            {% endif %}
+        </nav>
 </header>
 
 <main>
