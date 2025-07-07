@@ -24,7 +24,7 @@ Features
 
 How to Run
 1. Clone the repository:
-git clone https://github.com/your-username/online-restaurant.git
+git clone https://github.com/XyzPydev/AsianFood
 cd online-restaurant
 
 2. Create and activate a virtual environment:
