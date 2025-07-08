@@ -16,25 +16,56 @@ body {
     line-height: 1.5;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("../images/pattern.png") repeat;
+  opacity: 0.3;
+  z-index: -1;
+
+}
+
 /* Заголовок */
 header {
     background-color: #1e1e1e;
     color: #e63946;
     padding: 20px;
-    text-align: center;
     border-bottom: 2px solid #e63946;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.header-wrapper {
+    position: relative;
+    text-align: center;
 }
 
 header h1 {
     font-family: 'HappyChineseRegular', sans-serif;
     font-size: 64px;
     margin: 0;
-    text-shadow:
-        0 0 5px #ff2c2c,
-        0 0 10px #ff4444;
+    text-shadow: 0 0 5px #ff2c2c, 0 0 10px #ff4444;
     color: black;
 }
+
+.dragon-icon-left {
+    position: absolute;
+    left: 25%;
+    top: 75%;
+    transform: translateY(-50%);
+    width: 140px;
+    height: auto;
+}
+
+.dragon-icon-right {
+    position: absolute;
+    right: 25%;
+    top: 75%;
+    transform: translateY(-50%);
+    width: 140px;
+    height: auto;
+}
+
 
 /* Навігація */
 nav {
@@ -134,3 +165,4 @@ footer {
         padding: 20px 10px;
     }
 }
+
