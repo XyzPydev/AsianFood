@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 
-from flask_login import login_required, current_user, login_user, logout_user # pip install flask-login
+from flask_login import login_required, current_user, login_user, logout_user  # pip install flask-login
 
 from online_restaurant_db import Session, Users, Menu, Orders, Reservation
 from flask_login import LoginManager
@@ -27,12 +27,14 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+
 @login_manager.user_loader
 def load_user(user_id):
     with Session() as session:
-        user = session.query(Users).filter_by(id = user_id).first()
+        user = session.query(Users).filter_by(id=user_id).first()
         if user:
             return user
+
 
 @app.after_request
 def apply_csp(response):
@@ -49,6 +51,7 @@ def apply_csp(response):
     response.set_cookie('nonce', nonce)
     return response
 
+
 @app.route('/')
 @app.route('/home')
 def home():
@@ -61,7 +64,7 @@ def home():
     return render_template('home.html', menu=menu)
 
 
-@app.route("/register", methods = ['GET','POST'])
+@app.route("/register", methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         if request.form.get("csrf_token") != session["csrf_token"]:
@@ -71,9 +74,10 @@ def register():
         password = request.form['password']
 
         with Session() as cursor:
-            if cursor.query(Users).filter_by(email=email).first() or cursor.query(Users).filter_by(nickname = nickname).first():
+            if cursor.query(Users).filter_by(email=email).first() or cursor.query(Users).filter_by(
+                    nickname=nickname).first():
                 flash('Користувач з таким email або нікнеймом вже існує!', 'danger')
-                return render_template('register.html',csrf_token=session["csrf_token"])
+                return render_template('register.html', csrf_token=session["csrf_token"])
 
             new_user = Users(nickname=nickname, email=email)
             new_user.set_password(password)
@@ -82,9 +86,10 @@ def register():
             cursor.refresh(new_user)
             login_user(new_user)
             return redirect(url_for('home'))
-    return render_template('register.html',csrf_token=session["csrf_token"])
+    return render_template('register.html', csrf_token=session["csrf_token"])
 
-@app.route("/login", methods = ["GET","POST"])
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == 'POST':
         if request.form.get("csrf_token") != session["csrf_token"]:
@@ -94,7 +99,7 @@ def login():
         password = request.form['password']
 
         with Session() as cursor:
-            user = cursor.query(Users).filter_by(nickname = nickname).first()
+            user = cursor.query(Users).filter_by(nickname=nickname).first()
             if user and user.check_password(password):
                 login_user(user)
                 return redirect(url_for('home'))
@@ -103,12 +108,13 @@ def login():
 
     return render_template('login.html', csrf_token=session["csrf_token"])
 
+
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('home'))
-    
+
 
 @app.route("/add_position", methods=['GET', 'POST'])
 @login_required
@@ -156,7 +162,6 @@ def add_position():
         return redirect(url_for('add_position'))
 
     return render_template('add_position.html', csrf_token=session["csrf_token"])
-
 
 
 if __name__ == "__main__":
