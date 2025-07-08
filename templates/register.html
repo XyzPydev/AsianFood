@@ -7,8 +7,13 @@
 </head>
 <body>
 <header>
-    <h1>🍜 Asian Food</h1>
+    <div class="header-wrapper">
+        <img src="{{ url_for('static', filename='images/dragon_left.svg.png') }}" alt="dragon" class="dragon-icon-left">
+        <h1>🍜 Asian Food</h1>
+        <img src="{{ url_for('static', filename='images/dragon_right.svg.png') }}" alt="dragon" class="dragon-icon-right">
+    </div>
 </header>
+
 <div class="boxed">
 <h2>Реєстрація</h2>
 {% with messages = get_flashed_messages(with_categories=true) %}
