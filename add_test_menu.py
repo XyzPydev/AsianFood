@@ -1,6 +1,6 @@
 from online_restaurant_db import Session, Menu
 
-# Додати страву "Sushi"
+# Додати страву в бд
 with Session() as session:
     if not session.query(Menu).filter_by(name="Sushi").first():
         new_item = Menu(
