@@ -8,23 +8,27 @@
 </head>
 <body>
 <header>
-    <h1>🍜 Asian Food</h1>
-    <nav>
-        <nav>
-            {% if current_user.is_authenticated %}
-                Привіт, {{ current_user.nickname }}!
-                <a href="/logout">Вийти</a>
-            {% else %}
-                <a href="/login">Вхід</a>
-                <a href="/register">Реєстрація</a>
-            {% endif %}
+    <div class="header-wrapper">
+        <img src="{{ url_for('static', filename='images/dragon_left.svg.png') }}" alt="dragon" class="dragon-icon-left">
+        <h1>🍜 Asian Food</h1>
+        <img src="{{ url_for('static', filename='images/dragon_right.svg.png') }}" alt="dragon" class="dragon-icon-right">
 
-            {% if current_user.nickname == 'Admin' %}
-                <a href="/add_position">➕ Додати позицію</a>
-            {% endif %}
-        </nav>
+    </div>
+    <nav>
+        {% if current_user.is_authenticated %}
+            Привіт, {{ current_user.nickname }}!
+            <a href="/logout">Вийти</a>
+        {% else %}
+            <a href="/login">Вхід</a>
+            <a href="/register">Реєстрація</a>
+        {% endif %}
+
+        {% if current_user.nickname == 'Admin' %}
+            <a href="/add_position">➕ Додати позицію</a>
+        {% endif %}
     </nav>
 </header>
+
 
 <main>
     {% block content %}{% endblock %}
