@@ -21,9 +21,10 @@ body::before {
   background: url("../images/pattern.png") repeat;
   opacity: 0.3;
   z-index: -1;
+
 }
 
-/* Заголовок */
+/* Шапка */
 header {
     background-color: #1e1e1e;
     color: #e63946;
@@ -36,7 +37,6 @@ header {
 .header-wrapper {
     position: relative;
     text-align: center;
-
 }
 
 header h1 {
@@ -91,6 +91,7 @@ form {
 
 /* Поля вводу */
 input[type="text"],
+input[type="email"],
 input[type="password"] {
     padding: 10px;
     border: 1px solid #ccc;

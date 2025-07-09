@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Вхід</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/login.css') }}">
 
 </head>
 <body>
 <header>
-    <h1>🍜 Asian Food</h1>
+    <div class="header-wrapper">
+        <img src="{{ url_for('static', filename='images/dragon_left.svg.png') }}" alt="dragon" class="dragon-icon-left">
+        <h1>🍜 Asian Food</h1>
+        <img src="{{ url_for('static', filename='images/dragon_right.svg.png') }}" alt="dragon" class="dragon-icon-right">
+    </div>
 </header>
 <div class="boxed">
 <h2>Вхід в акаунт</h2>
