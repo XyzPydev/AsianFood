@@ -1,0 +1,130 @@
+@font-face {
+    font-family: 'HappyChineseRegular';
+    src: url('../fonts/HappyChineseRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+
+/* Загальний стиль */
+body {
+    margin: 0;
+    font-family: 'ZCOOL KuaiLe', cursive, sans-serif;
+    background-color: #121212;
+    color: #f4f4f4;
+    line-height: 1.5;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("../images/pattern.png") repeat;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+/* Заголовок */
+header {
+    background-color: #1e1e1e;
+    color: #e63946;
+    padding: 20px;
+    border-bottom: 2px solid #e63946;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    height: 140px;
+}
+
+.header-wrapper {
+    position: relative;
+    text-align: center;
+}
+
+header h1 {
+    font-family: 'HappyChineseRegular', sans-serif;
+    font-size: 64px;
+    margin: 0;
+    text-shadow: 0 0 5px #ff2c2c, 0 0 10px #ff4444;
+    color: black;
+}
+
+.dragon-icon-left, .dragon-icon-right {
+    position: absolute;
+    top: 75%;
+    transform: translateY(-50%);
+    width: 140px;
+    height: auto;
+}
+
+.dragon-icon-left {
+    left: 25%;
+}
+
+.dragon-icon-right {
+    right: 25%;
+}
+
+h2 {
+    text-align: center;
+    color: #f1c40f;
+    font-size: 30px;
+}
+
+/* Блок */
+.boxed {
+    margin: 40px auto;
+    background-color: #1a1a1a;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(230, 57, 70, 0.4);
+    text-align: center;
+    width: 500px;
+}
+
+.boxed h2 {
+    margin-bottom: 20px;
+    color: #f1c40f;
+}
+
+.empty {
+    text-align: center;
+}
+
+
+
+.home {
+    color: #f1c40f;
+    center: auto;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 14px;
+    background-color: #e63946;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff4c4c;
+}
+
+/* Футер */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-top: 1px solid #333;
+    margin-top: 40px;
+    color: #777;
+    font-size: 14px;
+    flex: 1;
+}
