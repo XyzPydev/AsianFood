@@ -7,6 +7,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* Загальний стиль */
 body {
     margin: 0;
@@ -274,4 +278,26 @@ footer {
 .cart-button:hover {
     background-color: #ffdb4d;
     color: black;
+}
+
+ .scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    display: block;
+    width: 150px;
+    height: 150px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.scroll-to-top:hover {
+    opacity: 1;
+}
+
+.scroll-to-top img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
