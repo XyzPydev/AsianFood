@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Кошик</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
 </head>
 <body>
+<header>
+    <div class="header-wrapper">
+        <img src="{{ url_for('static', filename='images/dragon_left.svg.png') }}" alt="dragon" class="dragon-icon-left">
+        <h1>Asian Food</h1>
+        <img src="{{ url_for('static', filename='images/dragon_right.svg.png') }}" alt="dragon" class="dragon-icon-right">
+    </div>
+</header>
 <h2>Ваше замовлення</h2>
 {% if items %}
+<div class="boxed">
     <ul>
         {% for item in items %}
             <li>
@@ -19,9 +28,14 @@
         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
         <button type="submit">Оформити замовлення</button>
     </form>
+</div>
 {% else %}
-    <p>Кошик порожній.</p>
+    <p class="empty">Кошик порожній.</p>
 {% endif %}
-<a href="/">← Назад до меню</a>
+
+<a href="/" class="home">← Назад до меню</a>
+<footer>
+    <p>&copy; 2025 Asian Food</p>
+</footer>
 </body>
 </html>
