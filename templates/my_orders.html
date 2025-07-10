@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="page-title">Мої замовлення</h2>
+
+{% if orders %}
+  <ul class="order-list">
+    {% for order in orders %}
+      <li class="order-entry">
+        <strong>Замовлено:</strong> {{ order.time }}<br>
+        <ul>
+            {% for item in order["items"] %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>У вас ще немає замовлень.</p>
+{% endif %}
+{% endblock %}

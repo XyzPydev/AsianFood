@@ -52,16 +52,16 @@ def apply_csp(response):
     return response
 
 
-@app.route('/')
-@app.route('/home')
+@app.route("/")
+@app.route("/home")
 def home():
     if "csrf_token" not in session:
         session["csrf_token"] = secrets.token_hex(16)
 
-    with Session() as cursor:
-        menu = cursor.query(Menu).filter_by(active=True).all()
-
+    with Session() as db:
+        menu = db.query(Menu).filter_by(active=True).all()
     return render_template('home.html', menu=menu)
+
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -164,5 +164,80 @@ def add_position():
     return render_template('add_position.html', csrf_token=session["csrf_token"])
 
 
+@app.route("/add_to_cart/<int:menu_id>")
+@login_required
+def add_to_cart(menu_id):
+    cart = session.get("cart", {})
+    cart[str(menu_id)] = cart.get(str(menu_id), 0) + 1
+    session["cart"] = cart
+    flash("Страву додано до кошика.")
+    return redirect(url_for("home"))
+
+
+
+@app.route("/cart")
+@login_required
+def cart():
+    cart = session.get("cart", {})
+    menu_items = []
+    total_price = 0
+
+    with Session() as db:
+        for item_id, quantity in cart.items():
+            item = db.query(Menu).get(int(item_id))
+            if item:
+                item.total = item.price * quantity
+                item.quantity = quantity
+                menu_items.append(item)
+                total_price += item.total
+
+    return render_template("cart.html", items=menu_items, total=total_price, csrf_token=session["csrf_token"])
+
+@app.route("/place_order", methods=["POST"])
+@login_required
+def place_order():
+    if request.form.get("csrf_token") != session["csrf_token"]:
+        return "Запит заблоковано!", 403
+
+    cart = session.get("cart", {})
+    if not cart:
+        flash("Кошик порожній.")
+        return redirect(url_for("cart"))
+
+    with Session() as db:
+        new_order = Orders(
+            order_list=cart,
+            order_time=datetime.utcnow(),
+            user_id=current_user.id
+        )
+        db.add(new_order)
+        db.commit()
+
+    session["cart"] = {}  # очищаємо кошик
+    flash("Замовлення оформлено успішно!")
+    return redirect(url_for("home"))
+
+
+@app.route("/my_orders")
+@login_required
+def my_orders():
+    with Session() as cursor:
+        orders = cursor.query(Orders).filter_by(user_id=current_user.id).order_by(Orders.order_time.desc()).all()
+        menu_items = {item.id: item.name for item in cursor.query(Menu).all()}
+
+        order_data = []
+        for order in orders:
+            readable_items = []
+            for item_id, count in order.order_list.items():
+                name = menu_items.get(int(item_id), f"Блюдо #{item_id}")
+                readable_items.append(f"{name} × {count}")
+            order_data.append({
+                "items": readable_items,
+                "time": order.order_time.strftime("%d.%m.%Y о %H:%M")
+            })
+
+    return render_template("my_orders.html", orders=order_data)
+
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=80)

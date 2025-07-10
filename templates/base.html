@@ -1,4 +1,3 @@
-<!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -6,29 +5,31 @@
     <title>{% block title %}Asian Food{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
+<body class="site-body">
 <header>
     <div class="header-wrapper">
         <img src="{{ url_for('static', filename='images/dragon_left.svg.png') }}" alt="dragon" class="dragon-icon-left">
-        <h1>🍜 Asian Food</h1>
+        <h1>Asian Food</h1>
         <img src="{{ url_for('static', filename='images/dragon_right.svg.png') }}" alt="dragon" class="dragon-icon-right">
-
     </div>
-    <nav>
-        {% if current_user.is_authenticated %}
-            Привіт, {{ current_user.nickname }}!
-            <a href="/logout">Вийти</a>
-        {% else %}
-            <a href="/login">Вхід</a>
-            <a href="/register">Реєстрація</a>
-        {% endif %}
+    <nav class="main-nav">
+        <a href="{{ url_for('home') }}">Головна</a>
 
-        {% if current_user.nickname == 'Admin' %}
-            <a href="/add_position">➕ Додати позицію</a>
+        {% if current_user.is_authenticated %}
+            <span class="greeting">Привіт, {{ current_user.nickname }}!</span>
+            <a href="{{ url_for('cart') }}">Кошик</a>
+            <a href="{{ url_for('my_orders') }}">Мої замовлення</a>
+            <a href="{{ url_for('logout') }}">Вийти</a>
+
+            {% if current_user.nickname == 'Admin' %}
+                <a href="{{ url_for('add_position') }}">Додати позицію</a>
+            {% endif %}
+        {% else %}
+            <a href="{{ url_for('login') }}">Вхід</a>
+            <a href="{{ url_for('register') }}">Реєстрація</a>
         {% endif %}
     </nav>
 </header>
-
 
 <main>
     {% block content %}{% endblock %}
