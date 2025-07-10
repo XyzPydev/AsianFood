@@ -1,0 +1,20 @@
+<!-- templates/home.html -->
+{% extends "base.html" %}
+
+{% block title %}Головна{% endblock %}
+
+{% block content %}
+    <h2>Меню</h2>
+    <div class="menu-container">
+        {% for item in menu %}
+            <div class="menu-item">
+                <img src="{{ url_for('static', filename='menu/' ~ item.file_name) }}" alt="{{ item.name }}">
+                <h3>{{ item.name }}</h3>
+                <p>{{ item.description }}</p>
+                <p><strong>{{ item.price }} грн</strong></p>
+            </div>
+        {% else %}
+            <p>Меню наразі порожнє.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

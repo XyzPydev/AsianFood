@@ -1,0 +1,136 @@
+@font-face {
+    font-family: 'HappyChineseRegular';
+    src: url('../fonts/HappyChineseRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
+
+/* Загальний стиль */
+body {
+    margin: 0;
+    font-family: 'ZCOOL KuaiLe', cursive, sans-serif;
+    background-color: #121212;
+    color: #f4f4f4;
+    line-height: 1.5;
+}
+
+/* Заголовок */
+header {
+    background-color: #1e1e1e;
+    color: #e63946;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #e63946;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+header h1 {
+    font-family: 'HappyChineseRegular', sans-serif;
+    font-size: 64px;
+    margin: 0;
+    text-shadow:
+        0 0 5px #ff2c2c,
+        0 0 10px #ff4444;
+    color: black;
+}
+
+/* Навігація */
+nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+    font-size: 20px;
+
+}
+
+nav a {
+    color: #f1c40f;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+    transition: all 0.3s ease;
+    text-align: right;
+}
+
+nav a:hover {
+    color: #fff;
+    background-color: #e63946;
+}
+
+/* Основний вміст */
+main {
+    padding: 20px 10px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Контейнер меню */
+.menu-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Пункт меню */
+.menu-item {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 15px;
+    width: 150px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 16px rgba(181, 25, 25, 0.9);
+
+}
+
+.menu-item img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.menu-item h3 {
+    color: #f1c40f;
+    font-size: 18px;
+    margin: 10px 0 0;
+}
+
+/* Футер */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1e1e1e;
+    border-top: 1px solid #333;
+    margin-top: 40px;
+    color: #777;
+    font-size: 14px;
+}
+
+/* Адаптивність */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu-item {
+        width: 90%;
+    }
+
+    main {
+        padding: 20px 10px;
+    }
+}

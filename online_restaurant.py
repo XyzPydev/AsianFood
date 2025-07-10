@@ -238,6 +238,64 @@ def my_orders():
 
     return render_template("my_orders.html", orders=order_data)
 
+@app.route('/menu_check', methods=['GET', 'POST'])
+@login_required
+def menu_check():
+    if current_user.nickname != 'Admin':
+        return redirect(url_for('home'))
+
+    if request.method == 'POST':
+        if request.form.get("csrf_token") != session['csrf_token']:
+            return "Запит заблоковано!", 403
+
+        position_id = request.form['pos_id']
+        with Session() as cursor:
+            position_obj = cursor.query(Menu).filter_by(id=position_id).first()
+            if 'change_status' in request.form:
+                position_obj.active = not position_obj.active
+            elif 'delete_position' in request.form:
+                cursor.delete(position_obj)
+            cursor.commit()
+
+    with Session() as cursor:
+        all_positions = cursor.query(Menu).all()
+
+    return render_template('check_menu.html', all_positions=all_positions, csrf_token=session["csrf_token"])
+
+@app.route('/all_users')
+@login_required
+def all_users():
+    if current_user.nickname != 'Admin':
+        return redirect(url_for('home'))
+
+    with Session() as cursor:
+        all_users = cursor.query(Users).with_entities(Users.id, Users.nickname, Users.email).all()
+    return render_template('all_users.html', all_users=all_users)
+
+# -------- ЗРОБИВ ЧИСТО ДЛЯ СЕБЕ
+#@app.route('/change_password', methods=['GET', 'POST'])
+#@login_required
+def change_password():
+    if request.method == 'POST':
+        if request.form.get("csrf_token") != session.get("csrf_token"):
+            return "Запит заблоковано!", 403
+
+        current_pwd = request.form['current_password']
+        new_pwd = request.form['new_password']
+
+        with Session() as cursor:
+            user = cursor.query(Users).filter_by(id=current_user.id).first()
+            if not user or not user.check_password(current_pwd):
+                flash("Неправильний поточний пароль", "danger")
+                return redirect(url_for('change_password'))
+
+            user.set_password(new_pwd)
+            cursor.commit()
+            flash("Пароль успішно змінено", "success")
+            return redirect(url_for('home'))
+
+    return render_template('change_password.html', csrf_token=session["csrf_token"])
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=80)
