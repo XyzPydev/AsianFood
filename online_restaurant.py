@@ -261,7 +261,6 @@ def all_users():
         all_users = cursor.query(Users).with_entities(Users.id, Users.nickname, Users.email).all()
     return render_template('all_users.html', all_users=all_users)
 
-# -------- ЗРОБИВ ЧИСТО ДЛЯ СЕБЕ
 #@app.route('/change_password', methods=['GET', 'POST'])
 #@login_required
 def change_password():
