@@ -8,7 +8,7 @@ from flask_login import UserMixin
 
 import bcrypt # pip install bcrypt
 
-engine = create_engine(f"postgresql+psycopg2://{PGUSER}:{PGPASSWORD}@localhost:5432/online_restaurant", echo=True)
+engine = create_engine(f"postgresql+psycopg2://postgres:1678442631NM@localhost:5432/online_restaurant", echo=True)
 Session = sessionmaker(bind=engine)
 
 # Базовий клас для моделей
