@@ -6,12 +6,12 @@ from datetime import datetime
 
 from flask_login import UserMixin
 
-import bcrypt # pip install bcrypt
+import bcrypt 
 
 engine = create_engine(f"postgresql+psycopg2://postgres:1678442631NM@localhost:5432/online_restaurant", echo=True)
 Session = sessionmaker(bind=engine)
 
-# Базовий клас для моделей
+
 class Base(DeclarativeBase):
     def create_db(self):
         Base.metadata.create_all(engine)
