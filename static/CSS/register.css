@@ -1,11 +1,9 @@
-/* Шрифти */
 @font-face {
     font-family: 'HappyChineseRegular';
     src: url('../fonts/HappyChineseRegular.ttf') format('truetype');
 }
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
 
-/* Основне оформлення */
 body {
     margin: 0;
     font-family: 'ZCOOL KuaiLe', cursive, sans-serif;
@@ -24,7 +22,6 @@ body::before {
 
 }
 
-/* Шапка */
 header {
     background-color: #1e1e1e;
     color: #e63946;
@@ -65,7 +62,6 @@ header h1 {
     height: auto;
 }
 
-/* Блок форми */
 .boxed {
     max-width: 400px;
     margin: 100px auto;
@@ -81,7 +77,6 @@ header h1 {
     color: #f1c40f;
 }
 
-/* Форма */
 form {
     display: flex;
     flex-direction: column;
@@ -89,7 +84,6 @@ form {
     margin-bottom: 15px;
 }
 
-/* Поля вводу */
 input[type="text"],
 input[type="email"],
 input[type="password"] {
@@ -101,7 +95,6 @@ input[type="password"] {
     font-size: 16px;
 }
 
-/* Кнопка */
 button[type="submit"] {
     padding: 10px;
     background-color: #e63946;
@@ -118,7 +111,6 @@ button[type="submit"]:hover {
     background-color: #c32d3c;
 }
 
-/* Посилання */
 a {
     display: inline-block;
     margin-top: 10px;
@@ -130,7 +122,6 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Футер */
 footer {
     text-align: center;
     padding: 20px;
@@ -141,7 +132,6 @@ footer {
     font-size: 14px;
 }
 
-/* Повідомлення */
 .alert {
     color: #e63946;
     margin: 8px;
