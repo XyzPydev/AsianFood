@@ -57,11 +57,28 @@ Project Structure
 online-restaurant/
 ├── static/
 │   ├── menu/                # dish images
-│   └── css/style.css        # styling
+│   └── css/ 
+│   │   ├── style.css
+│   │   ├── login.css
+│   │   └── register.css
+│   └── fonts/ 
+│   │   └── HappyChineseRegular.ttf
+│   └── images/ 
+│   │   ├── dragon_left.svg.png
+│   │   ├── dragon_right.svg.png
+│   │   └── pattern.png
 ├── templates/
+│   ├── all_users.html
+│   ├── cart.html
+│   ├── change_password.html           # use for tests
+│   ├── check_menu.html
+│   ├── my_order.html
 │   ├── home.html
+│   ├── my_orders.html
 │   ├── login.html
 │   ├── register.html
+│   ├── reservation_check.html
+│   ├── reserved.html
 │   ├── add_position.html
 │   └── base.html
 ├── online_restaurant.py     # main Flask app
