@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 
-from flask_login import login_required, current_user, login_user, logout_user  # pip install flask-login
+from flask_login import login_required, current_user, login_user, logout_user
 
 from online_restaurant_db import Session, Users, Menu, Orders, Reservation
 from flask_login import LoginManager
@@ -29,8 +29,8 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-MARGANETS_COORDS = (46.4825, 30.7233)  # координати ресторану, за потреби зміни
-KYIV_RADIUS_KM = 50  # допустима зона доставки/бронювання
+MARGANETS_COORDS = (46.4825, 30.7233)
+KYIV_RADIUS_KM = 50
 
 TABLE_NUM = {
     "1-2": 5,
@@ -223,7 +223,7 @@ def place_order():
         db.add(new_order)
         db.commit()
 
-    session["cart"] = {}  # очищаємо кошик
+    session["cart"] = {}
     flash("Замовлення оформлено успішно!")
     return redirect(url_for("home"))
 
@@ -316,7 +316,6 @@ def my_order(id):
 
         menu_items = {str(item.id): item.name for item in cursor.query(Menu).all()}
 
-        # Створимо словник з назвами страв
         readable_order_list = {}
         for item_id, quantity in order.order_list.items():
             name = menu_items.get(str(item_id), f"Страва #{item_id}")
