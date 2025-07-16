@@ -29,7 +29,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-MARGANETS_COORDS = (47.6392, 34.6302)  # координати ресторану, за потреби зміни
+MARGANETS_COORDS = (46.4825, 30.7233)  # координати ресторану, за потреби зміни
 KYIV_RADIUS_KM = 50  # допустима зона доставки/бронювання
 
 TABLE_NUM = {
@@ -261,6 +261,7 @@ def all_users():
         all_users = cursor.query(Users).with_entities(Users.id, Users.nickname, Users.email).all()
     return render_template('all_users.html', all_users=all_users)
 
+# -------- ЗРОБИВ ЧИСТО ДЛЯ СЕБЕ
 #@app.route('/change_password', methods=['GET', 'POST'])
 #@login_required
 def change_password():
@@ -309,22 +310,24 @@ def my_orders():
 @login_required
 def my_order(id):
     with Session() as cursor:
-        us_order = cursor.query(Orders).filter_by(id=id, user_id=current_user.id).first()
-        if not us_order:
-            flash("Замовлення не знайдено", "danger")
-            return redirect(url_for('my_orders'))
+        order = cursor.query(Orders).filter_by(id=id, user_id=current_user.id).first()
+        if not order:
+            return redirect(url_for("my_orders"))
 
-        total_price = 0
-        items = []
-        for item_id, count in us_order.order_list.items():
-            item = cursor.query(Menu).filter_by(id=int(item_id)).first()
-            if item:
-                total_price += int(item.price) * int(count)
-                items.append(f"{item.name} × {count}")
-            else:
-                items.append(f"Видалена позиція #{item_id} × {count}")
+        menu_items = {str(item.id): item.name for item in cursor.query(Menu).all()}
 
-    return render_template('my_order.html', order=us_order, total_price=total_price, items=items)
+        # Створимо словник з назвами страв
+        readable_order_list = {}
+        for item_id, quantity in order.order_list.items():
+            name = menu_items.get(str(item_id), f"Страва #{item_id}")
+            readable_order_list[name] = quantity
+
+        total_price = sum(
+            int(cursor.query(Menu).filter_by(id=int(item_id)).first().price) * int(quantity)
+            for item_id, quantity in order.order_list.items()
+        )
+
+    return render_template("my_order.html", order=order, order_list=readable_order_list, total_price=total_price)
 
 
 
@@ -400,6 +403,39 @@ def reservations_check():
         all_reservations = cursor.query(Reservation).all()
         return render_template('reservations_check.html', all_reservations=all_reservations, csrf_token=session["csrf_token"])
 
+
+@app.route('/update_cart', methods=['POST'])
+@login_required
+def update_cart():
+    if request.form.get("csrf_token") != session.get("csrf_token"):
+        return "Недійсний CSRF токен", 403
+
+    item_id = request.form.get('item_id')
+    quantity = int(request.form.get('quantity', 1))
+
+    if 'cart' not in session:
+        session['cart'] = {}
+
+    cart = session['cart']
+    if item_id in cart:
+        cart[item_id] = quantity
+        session.modified = True
+
+    return redirect(url_for('cart'))
+
+@app.route('/remove_from_cart', methods=['POST'])
+@login_required
+def remove_from_cart():
+    if request.form.get("csrf_token") != session.get("csrf_token"):
+        return "Недійсний CSRF токен", 403
+
+    item_id = request.form.get('item_id')
+
+    if 'cart' in session and item_id in session['cart']:
+        session['cart'].pop(item_id)
+        session.modified = True
+
+    return redirect(url_for('cart'))
 
 
 

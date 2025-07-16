@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Меню</h2>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<!-- Кнопки адміністратора -->
+{% if current_user.is_authenticated and current_user.nickname == 'Admin' %}
+<div style="margin-bottom: 30px;">
+  <a href="{{ url_for('add_position') }}" class="admin-button">➕ Додати позицію</a>
+  <a href="{{ url_for('menu_check') }}" class="admin-button">📋 Перевірити меню</a>
+  <a href="{{ url_for('all_users') }}" class="admin-button">👤 Користувачі</a>
+</div>
+{% endif %}
+
+<div class="menu-grid">
+  {% for item in menu %}
+    <div class="menu-card">
+      <img src="{{ url_for('static', filename='menu/' + item.file_name) }}" alt="{{ item.name }}">
+      <h3>{{ item.name }}</h3>
+      <p>{{ item.description }}</p>
+      <p><strong>{{ item.price }} грн</strong> — {{ item.weight }} г</p>
+      <a href="{{ url_for('add_to_cart', menu_id=item.id) }}" class="cart-button">Додати до кошика</a>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

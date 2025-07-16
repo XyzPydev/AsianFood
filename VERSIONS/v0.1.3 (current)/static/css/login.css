@@ -1,13 +1,11 @@
+/* Шрифти */
 @font-face {
     font-family: 'HappyChineseRegular';
     src: url('../fonts/HappyChineseRegular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
-
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
 
-/* Загальний стиль */
+/* Основне оформлення */
 body {
     margin: 0;
     font-family: 'ZCOOL KuaiLe', cursive, sans-serif;
@@ -17,12 +15,12 @@ body {
 }
 
 body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: url("../images/pattern.png") repeat;
-    opacity: 0.3;
-    z-index: -1;
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("../images/pattern.png") repeat;
+  opacity: 0.3;
+  z-index: -1;
 }
 
 /* Заголовок */
@@ -32,12 +30,13 @@ header {
     padding: 20px;
     border-bottom: 2px solid #e63946;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
-    height: 140px;
+    height: 153px;
 }
 
 .header-wrapper {
     position: relative;
     text-align: center;
+
 }
 
 header h1 {
@@ -48,37 +47,33 @@ header h1 {
     color: black;
 }
 
-.dragon-icon-left, .dragon-icon-right {
+.dragon-icon-left {
     position: absolute;
+    left: 25%;
     top: 75%;
     transform: translateY(-50%);
     width: 140px;
     height: auto;
 }
 
-.dragon-icon-left {
-    left: 25%;
-}
-
 .dragon-icon-right {
+    position: absolute;
     right: 25%;
+    top: 75%;
+    transform: translateY(-50%);
+    width: 140px;
+    height: auto;
 }
 
-h2 {
-    text-align: center;
-    color: #f1c40f;
-    font-size: 30px;
-}
-
-/* Блок */
+/* Блок форми */
 .boxed {
-    margin: 40px auto;
+    max-width: 400px;
+    margin: 100px auto;
     background-color: #1a1a1a;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(230, 57, 70, 0.4);
     text-align: center;
-    width: 500px;
 }
 
 .boxed h2 {
@@ -86,35 +81,52 @@ h2 {
     color: #f1c40f;
 }
 
-.empty {
-    text-align: center;
+/* Форма */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
 }
 
-
-
-.home {
-    color: #f1c40f;
-    center: auto;
-    display: block;
-    text-align: center;
-    margin-top: 20px;
+/* Поля вводу */
+input[type="text"],
+input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #2a2a2a;
+    color: #f4f4f4;
+    font-size: 16px;
 }
 
-button {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 8px 14px;
+/* Кнопка */
+button[type="submit"] {
+    padding: 10px;
     background-color: #e63946;
-    color: #fff;
+    color: white;
     border: none;
     border-radius: 6px;
-    text-decoration: none;
+    font-size: 16px;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #ff4c4c;
+button[type="submit"]:hover {
+    background-color: #c32d3c;
+}
+
+/* Посилання */
+a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #f1c40f;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 /* Футер */
@@ -123,8 +135,13 @@ footer {
     padding: 20px;
     background-color: #1e1e1e;
     border-top: 1px solid #333;
-    margin-top: 40px;
+    margin-top: 120px;
     color: #777;
     font-size: 14px;
-    flex: 1;
+}
+
+/* Повідомлення */
+.alert {
+    color: #e63946;
+    margin: 8px;
 }
