@@ -16,6 +16,11 @@ body {
     line-height: 1.5;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+
 body::before {
     content: "";
     position: fixed;
@@ -87,6 +92,22 @@ nav a:hover {
     color: #fff;
     background-color: #e63946;
 }
+
+.greeting {
+    text-align: center;
+    margin-bottom: 25px;
+    margin-top: 10px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 
 /* Основний вміст */
 main {
