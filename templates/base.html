@@ -5,7 +5,7 @@
     <title>{% block title %}Asian Food{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body class="site-body">
+<body class="site-body {% if current_user.is_authenticated and current_user.nickname == 'Admin' %}admin-nav{% endif %}">
 <header>
     <div class="header-wrapper">
         <img src="{{ url_for('static', filename='images/dragon_left.svg.png') }}" alt="dragon" class="dragon-icon-left">

@@ -10,6 +10,7 @@
   {% endif %}
 {% endwith %}
 
+<!-- Кнопки адміністратора -->
 {% if current_user.is_authenticated and current_user.nickname == 'Admin' %}
 <div style="margin-bottom: 30px;">
   <a href="{{ url_for('add_position') }}" class="admin-button">➕ Додати позицію</a>

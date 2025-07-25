@@ -7,6 +7,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap');
 
+/* Загальний стиль */
 body {
     margin: 0;
     font-family: 'ZCOOL KuaiLe', cursive, sans-serif;
@@ -337,6 +338,13 @@ footer {
     margin-right: 10px;
 }
 
+.admin-nav nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
 .order-entry select {
     padding: 6px 10px;
     border-radius: 6px;
@@ -373,6 +381,7 @@ footer {
     color: #fff;
 }
 
+
 .details-button {
     display: inline-block;
     margin: 5px 8px 5px 0;
@@ -408,3 +417,145 @@ footer {
     background-color: #c82333;
 }
 
+.admin-form {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 30px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.admin-form input[type="text"],
+.admin-form input[type="number"],
+.admin-form input[type="file"],
+.admin-form textarea {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #2a2a2a;
+    color: #f4f4f4;
+    font-size: 16px;
+    font-family: inherit;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+}
+
+.admin-form textarea {
+    min-height: 80px;
+}
+
+.admin-form input[type="file"] {
+    padding: 6px;
+    background-color: #2a2a2a;
+    color: #ccc;
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus {
+    border-color: #f1c40f;
+    outline: none;
+    background-color: #1e1e1e;
+}
+
+.admin-form button {
+    padding: 10px 18px;
+    background-color: #e63946;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.admin-form button:hover {
+    background-color: #c82333;
+}
+
+.admin-form input[type="file"] {
+    display: block;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #2a2a2a;
+    color: #ccc;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.admin-form input[type="file"]::file-selector-button {
+    background-color: #f1c40f;
+    color: #1a1a1a;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.admin-form input[type="file"]::file-selector-button:hover {
+    background-color: #d4ac0d;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: center;
+    color: #ddd;
+}
+
+table th {
+    background-color: #222;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #1c1c1c;
+}
+
+table tr:nth-child(odd) {
+    background-color: #2a2a2a;
+}
+
+table button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    margin: 3px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+table button[name="change_status"] {
+    background-color: #f1c40f;
+    color: #1a1a1a;
+}
+
+table button[name="change_status"]:hover {
+    background-color: #d4ac0d;
+}
+
+table button[name="delete_position"] {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+table button[name="delete_position"]:hover {
+    background-color: #c0392b;
+}
